@@ -61,7 +61,9 @@ jobs:
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v3
       with:
-        app-name: 'SpeechTranslator'  # Your app name
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXX }}  # Keep your existing secret
-        package: .
+          app-name: 'SpeechTranslator'  # <-- your Azure App Service name
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          package: .
+
+            
 
