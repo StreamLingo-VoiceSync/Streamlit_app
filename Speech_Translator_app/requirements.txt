@@ -1,0 +1,11 @@
+streamlit
+transformers
+torch==2.0.1       # Stable with CPU and Whisper
+langdetect
+gtts
+sentencepiece>=0.1.99,<0.2.0
+openai-whisper
+ffmpeg-python
+librosa
+numpy
+soundfile
