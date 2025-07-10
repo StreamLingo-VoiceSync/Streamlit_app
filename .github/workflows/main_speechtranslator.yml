@@ -46,24 +46,22 @@ jobs:
             !venv/
 
   deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    
-    
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: python-app
+   runs-on: ubuntu-latest
+   needs: build
 
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
+   steps:
+    - name: Download artifact from build job
+      uses: actions/download-artifact@v4
+      with:
+        name: python-app
 
-      
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
-        id: deploy-to-webapp
-        with:
-          app-name: 'SpeechTranslator'
-          slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_875DC87E24A9418CACEF183E189C9B7F }}
+    - name: Unzip artifact for deployment
+      run: unzip release.zip
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v3
+      with:
+        app-name: 'SpeechTranslator'  # Your app name
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_XXXX }}  # Keep your existing secret
+        package: .
+
