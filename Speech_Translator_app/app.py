@@ -1,6 +1,6 @@
 import streamlit as st
 from stt import transcribe_audio
-from demo_app.mt import translate_text
+from mt import translate_text  # <-- NLLB-based translation module with auto source detection
 from gtts_module import synthesize_speech
 import os
 from resemblyzer import VoiceEncoder, preprocess_wav
@@ -36,8 +36,8 @@ if uploaded_file is not None:
     st.text_area("Transcribed Text", transcribed_text, height=100)
 
     if transcribed_text:
-        # Step 2: MT
-        st.markdown("### 2. 🌍 Translation")
+        # Step 2: MT (NLLB with auto source lang detection)
+        st.markdown("### 2. 🌍 Translation (via NLLB)")
         target_lang = st.selectbox("Select target language", ["fr", "de", "hi", "es", "zh", "en"])
         translated_text = translate_text(transcribed_text, target_lang)
         st.text_area("Translated Text", translated_text, height=100)
@@ -58,7 +58,7 @@ if uploaded_file is not None:
         embedding = encoder.embed_utterance(wav)
 
         st.success("Voice embedding extracted successfully.")
-        st.write(embedding)  # raw vector
-        st.line_chart(embedding)  # plot
+        st.write(embedding)
+        st.line_chart(embedding)
     except Exception as e:
         st.error(f"Embedding extraction failed: {e}")
